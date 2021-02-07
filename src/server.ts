@@ -2,8 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import axios from 'axios';
 import {JSDOM} from 'jsdom';
-import { domain } from 'process';
-import puppeteer from 'puppeteer';
 let app = express()
 app.use(cors());
 
@@ -14,7 +12,7 @@ const getYoutubeId = (url : string) =>{
 }
 
 app.get('/', (req, res) => {
-  res.json({dick: 'poop'})
+  res.json({something: 'nice'})
 })
 
 app.get('/:url', async (req, res) => {
@@ -41,7 +39,7 @@ app.get('/:url', async (req, res) => {
 
   const domain = url.split('/').shift();
   const makeAbsoluteUrl = (src : string | null | undefined) => {
-    if (src?.includes('https://') || src?.includes('http://')) {
+    if (src?.includes('https://') || src?.includes('http://') || src?.includes('//')){
       return src;
     } else {
       const firstChar = src?.substring(0,1);

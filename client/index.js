@@ -4,8 +4,8 @@ const submitButton = document.querySelector('.submit-button');
 
 submitButton.addEventListener('click', async () => {
   const fullUrl = field.value;
-  const url = field.value.replace('https://', '').replace(/\//g, '~');
-  const response = await fetch(`http://localhost:3000/${url}`);
+  const url = encodeURIComponent(field.value);
+  const response = await fetch(`http://localhost:1337/?url=${url}`);
   const title = await response.json();
   console.log(title);
   alert(title);

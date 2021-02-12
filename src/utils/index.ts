@@ -62,7 +62,7 @@ const handleUrl = async (url: string) => {
     tweetId: '',
     twitterUser: '',
     ...getMetaData(dom, url),
-    youtubeId: getYoutubeId(url),
+    ...getYoutubeId(url),
     ...getTwitterData(url),
     url,
   };

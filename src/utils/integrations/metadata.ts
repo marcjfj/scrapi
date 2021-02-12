@@ -1,36 +1,4 @@
-import { makeAbsoluteUrl } from '../utils';
-
-// check if it's a Youtube link and return the ID
-const getYoutubeId = (url: string) => {
-  var regExp = /(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=|\/sandalsResorts#\w\/\w\/.*\/))([^\/&]{10,12})/;
-  var match = url.match(regExp);
-  return match && match[1].length == 11 ? match[1] : '';
-};
-
-interface twitter {
-  tweetId: string | undefined;
-  twitterUser: string | undefined;
-}
-// Check if it's a Twitter link and then return an object
-// the function will find either the tweet ID or, if it's a profile link,
-// then it populates the twitterUser prop instead
-
-const getTwitterData = (url: string) => {
-  const twitterData: twitter = {
-    tweetId: '',
-    twitterUser: '',
-  };
-  console.log(url);
-  if (url.includes('twitter.com')) {
-    if (url.includes('/status/')) {
-      twitterData.tweetId = url.split('/').pop();
-    } else if (url.split('/').length > 1) {
-      twitterData.twitterUser = url.split('/').pop();
-    }
-  }
-  return twitterData;
-};
-
+import { makeAbsoluteUrl } from '../index';
 interface meta {
   title: string;
   description: string;
@@ -95,4 +63,4 @@ const getMetaData = (dom: any, url: string) => {
   return metaObj;
 };
 
-export { getYoutubeId, getMetaData, getTwitterData };
+export default getMetaData;

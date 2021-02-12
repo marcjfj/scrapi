@@ -3,27 +3,27 @@ import app from '../server';
 
 let server = request(app);
 
-// beforeEach((done) => {
-//   server = app.listen(4000, (err) => {
-//     if (err) return done(err);
-
-//     agent = request.agent(server); // since the application is already listening, it should use the allocated port
-//     done();
-//   });
-// });
-
-// afterEach((done) => {
-//   return server && server.close(done);
-// });
-
-describe('Get Endpoint', () => {
-  test('should return an object', async (done) => {
+describe('Get Stackoverflow URL', () => {
+  test('should return a title, description and primaryImage', async (done) => {
     const result = await server.get(
-      '/?url=https://stackoverflow.com/questions/12787781/type-definition-in-object-literal-in-typescript'
+      `/?url=${encodeURIComponent(
+        'https://stackoverflow.com/questions/50497630/is-there-an-option-to-show-all-test-descriptions-when-i-run-jest-tests'
+      )}`
     );
-    console.log(result);
-    expect(result.type).toBe('application/json');
-    expect(result.status).toBe(200);
+    expect(result.body.title.length).toBeTruthy();
+    expect(result.body.description.length).toBeTruthy();
+    expect(result.body.primaryImage.length).toBeTruthy();
+    done();
+  });
+});
+describe('Get tweet', () => {
+  test('should return a tweetId', async (done) => {
+    const result = await server.get(
+      `/?url=${encodeURIComponent(
+        'https://twitter.com/dan_abramov/status/1359273591976648705'
+      )}`
+    );
+    expect(result.body.tweetId).toBeTruthy();
     done();
   });
 });

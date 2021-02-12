@@ -20,6 +20,7 @@ const getTwitterData = (url: string) => {
     tweetId: '',
     twitterUser: '',
   };
+  console.log(url);
   if (url.includes('twitter.com')) {
     if (url.includes('/status/')) {
       twitterData.tweetId = url.split('/').pop();

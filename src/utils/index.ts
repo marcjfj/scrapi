@@ -39,20 +39,31 @@ interface responseDef {
 const handleUrl = async (url: string) => {
   let data;
   if (url) {
-    try {
-      const response = await axios.get(url);
-      data = response.data;
-    } catch (e) {
-      return { error: 'Invalid API call' };
+    if (!getTwitterData(url).tweetId && !getTwitterData(url).twitterUser) {
+      try {
+        const response = await axios.get(url);
+        data = response.data;
+      } catch (e) {
+        return { error: 'Invalid API call' };
+      }
+    } else {
+      data = {
+        title: '',
+        description: '',
+        primaryImage: '',
+        images: [],
+      };
     }
   }
 
   const dom = new JSDOM(data);
 
   const responseObj: responseDef = {
+    tweetId: '',
+    twitterUser: '',
     ...getMetaData(dom, url),
-    ...getTwitterData(url),
     youtubeId: getYoutubeId(url),
+    ...getTwitterData(url),
     url,
   };
   return responseObj;

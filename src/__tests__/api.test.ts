@@ -16,7 +16,7 @@ describe('Get Stackoverflow URL', () => {
     done();
   });
 });
-describe('Get tweet', () => {
+describe('Get Twitter info', () => {
   test('should return a tweetId', async (done) => {
     const result = await server.get(
       `/?url=${encodeURIComponent(
@@ -24,6 +24,25 @@ describe('Get tweet', () => {
       )}`
     );
     expect(result.body.tweetId).toBeTruthy();
+    done();
+  });
+  test('should return a twitter user', async (done) => {
+    const result = await server.get(
+      `/?url=${encodeURIComponent('https://twitter.com/freekmurze')}`
+    );
+    expect(result.body.twitterUser).toBeTruthy();
+    done();
+  });
+});
+
+describe('Get Youtube ID', () => {
+  test('should return a tweetId', async (done) => {
+    const result = await server.get(
+      `/?url=${encodeURIComponent(
+        'https://www.youtube.com/watch?v=ilZQFFi5DOQ&ab_channel=LaughTrax'
+      )}`
+    );
+    expect(result.body.youtubeId).toBeTruthy();
     done();
   });
 });
